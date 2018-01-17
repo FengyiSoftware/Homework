@@ -1,0 +1,28 @@
+grep -n 'San' grepdata.txt
+grep -n '^J' grepdata.txt
+grep -n '700$' grepdata.txt
+grep -vn '834' grepdata.txt
+grep -n '[A-Z][a-z]\{4\}:' grepdata.txt
+grep -n ':[0-9]\{6\}$' grepdata.txt
+grep -ni '[Ll]incoln' grepdata.txt
+
+
+cat grepdata.txt | sed 's/Jon/Jonathon/g'
+cat grepdata.txt | sed '1,3d'
+cat grepdata.txt | sed -n '5,10p'
+cat grepdata.txt | sed 's/^.*Lane.*$//g' | sed '/^$/d'
+cat grepdata.txt | sed -e 's/^Fred/***Fred/'
+cat grepdata.txt | sed '/Jose/c JOSE HAS RETIRED'
+cat grepdata.txt | sed '/^$/d'
+
+
+useradd userA
+visudo -f /etc/sudoers
+userA  ALL=(ALL) NOPASSWD=ALL
+su - userA
+sudo su -
+SUID   chmod u+s
+（针对二进制可执行文件，任意用户执行该文件，则具有和文件拥有者相同的权限） 
+ find / -perm /7000 
+
+
