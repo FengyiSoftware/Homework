@@ -1,0 +1,14 @@
+1、一般服务类型
+内部程序数据交换的插槽服务
+执行环境类型
+文件系统挂载相关服务
+侦测特定文件和目录类型
+循环执行服务
+.service：主要是系统服务
+.target：.service的集合
+.socket：类似于网络服务，但是，它是用于系统内部通信，而不是对外部提供网络端口访问，用于接收请求；
+
+2、graphical.target：进入init5界面
+multi-user.target：进入init2,3,4界面
+systemctl list-units --type=target --all
+ll -d /usr/lib/systemd/system/runlevel*.target | cut -c 28-
