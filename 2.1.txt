@@ -1,0 +1,29 @@
+如果发现linux服务器无法正常访问服务器，请写出解决问题的方案
+测试能不能ping通网络
+测试端口
+查看防火墙有没有拦截
+查看/etc/sysconfig/network-scripts/ifcfg-ens33文件，查看是否有误
+
+#!/usr/bin/env bash
+
+a= $(grep -r "$1" /etc/sysconfig/network-scripts/)
+if [ a=="" ];then
+    cp /etc/sysconfig/network-scripts/ifcfg-ens33 /etc/sysconfig/network-scripts/ifcfg-$1;
+    sed -i 's/NAME=ens33/NAME=$1/g' /etc/sysconfig/network-scripts/ifcfg-$1;
+    Sed -i 's/DEVICE=ens33/DEVICE=$1/g' /etc/sysconfig/network-scripts/ifcfg-$1;
+fi
+b= $( cat /etc/sysconfig/network-scripts/ifcfg-$1 | grep "BOOTPROTO=dhcp" )
+if [ b=="BOOTPROTO=dhcp" ]; then
+    sed -i 's/BOOTPROTO=dhcp/BOOTPROTO=static/g' /etc/sysconfig/network-scripts/ifcfg-$1;
+    echo "
+    IPADDR=$2
+    NETMASK=$3
+    DNS1=192.168.111.2
+    GATEWAY=192.168.111.2" >>/etc/sysconfig/network-scripts/ifcfg-$1
+fi
+ifdown $1&&ifup $1
+
+
+
+
+
